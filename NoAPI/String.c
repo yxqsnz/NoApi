@@ -1,9 +1,9 @@
 #include "String.h"
+
 #include "Memory.h"
 long long GetStringLength(const char *Target) {
   const char *seg = Target;
-  while (*Target)
-    Target++;
+  while (*Target) Target++;
   return Target - seg;
 }
 long long CopyString(const char *Source, char *Output) {

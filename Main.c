@@ -1,6 +1,6 @@
 #include "NoAPI/Io.h"
 #include "NoAPI/Thread.h"
-void MyThread(void* Arg) {
+void MyThread(void *Arg) {
   struct FileHandle stdout = GetStdout();
   IO.WriteString(&stdout, "Hello, From `MyThread`\n");
   IO.Flush(&stdout);

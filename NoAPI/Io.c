@@ -1,8 +1,12 @@
 #include "Io.h"
-#include "String.h"
+
 #include "StdError.h"
 #include "StdErrorKind.h"
-#define SYS_TRY(err, expr) if(expr < 0) {SetLastError(err);}
+#include "String.h"
+#define SYS_TRY(err, expr) \
+  if (expr < 0) {          \
+    SetLastError(err);     \
+  }
 int IOWriteString(struct FileHandle *fh, const char *Data) {
   int wrote;
   SYS_TRY(STATUS_IO_FAIL, (wrote = SysWrite(fh->fd, Data, String.Count(Data))));
@@ -14,7 +18,9 @@ struct FileHandle IOOpenFile(const char *path, enum FileOpenFlag flags,
   SYS_TRY(STATUS_IO_FAIL, (fh.fd = SysOpen(path, flags, mode)));
   return fh;
 }
-void IOFlush(struct FileHandle *fh) { SYS_TRY(STATUS_IO_FAIL, SysFSync(fh->fd)); }
+void IOFlush(struct FileHandle *fh) {
+  SYS_TRY(STATUS_IO_FAIL, SysFSync(fh->fd));
+}
 struct FileHandle GetStdout() {
   struct FileHandle fh;
   fh.fd = 1;
